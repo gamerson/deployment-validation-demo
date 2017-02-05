@@ -1,3 +1,3 @@
 Bundle-Name: tp-fragment
 Bundle-SymbolicName: com.liferay.tp.fragment
-Fragment-Host: com.liferay.bookmarks.web;bundle-version='[1.0.10,1.0.11)'
+Fragment-Host: com.liferay.bookmarks.web;bundle-version="[1.0.10,1.0.11)"
