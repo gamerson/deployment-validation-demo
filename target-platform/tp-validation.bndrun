@@ -3,11 +3,13 @@
 
 -runrequires: \
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.loginaction)',\
-    osgi.identity;filter:='(osgi.identity=com.liferay.tp.portlet)'
+    osgi.identity;filter:='(osgi.identity=com.liferay.tp.portlet)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.tp.fragment)'
 
 -distro: com.liferay.target.platform-7.0.2.jar;version=file
 
 -runbundles: \
+    com.liferay.tp.fragment;version='[1.0.0,1.0.1)',\
     com.liferay.tp.loginaction;version='[1.0.0,1.0.1)',\
     com.liferay.tp.portlet;version='[1.0.0,1.0.1)'
 
