@@ -21,4 +21,5 @@
 /plugins-sdk/dependencies/**/*.jar
 /plugins-sdk/dist
 /plugins-sdk/lib
+target
 test-results
