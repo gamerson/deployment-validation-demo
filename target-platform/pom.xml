@@ -37,7 +37,7 @@
                 <artifactId>bnd-export-maven-plugin</artifactId>
                 <version>3.4.0-SNAPSHOT</version>
                 <configuration>
-                    <failOnChanges>true</failOnChanges>
+                    <failOnChanges>false</failOnChanges>
                     <resolve>true</resolve>
                     <bndruns>
                         <bndrun>tp-validation.bndrun</bndrun>
