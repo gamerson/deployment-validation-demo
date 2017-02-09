@@ -1,13 +1,5 @@
--standalone: true
+-standalone: target/index.xml
 -resourceonly: true
-
--plugin.pom.repo = \
-	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
-		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
-		releaseUrls=https://repo1.maven.org/maven2/; \
-		pom=${.}/pom.xml; \
-		name=pom.repo; \
-		location=${.}/target/cached.xml
 
 -runrequires: \
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.loginaction)',\

@@ -33,11 +33,28 @@
     <build>
         <plugins>
             <plugin>
+              <groupId>biz.aQute.bnd</groupId>
+              <artifactId>bnd-indexer-maven-plugin</artifactId>
+              <version>3.4.0-SNAPSHOT</version>
+              <configuration>
+                <localURLs>REQUIRED</localURLs>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>index</id>
+                  <goals>
+                    <goal>index</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>biz.aQute.bnd</groupId>
                 <artifactId>bnd-export-maven-plugin</artifactId>
                 <version>3.4.0-SNAPSHOT</version>
                 <configuration>
-                    <failOnChanges>true</failOnChanges>
+                    <failOnChanges>false</failOnChanges>
                     <resolve>true</resolve>
                     <bndruns>
                         <bndrun>tp-validation.bndrun</bndrun>
