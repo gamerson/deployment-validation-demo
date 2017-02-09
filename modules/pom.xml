@@ -12,7 +12,6 @@
     <packaging>pom</packaging>
   <modules>
     <module>tp-portlet</module>
-    <module>tp-service</module>
     <module>tp-loginaction</module>
   </modules>
 </project>
