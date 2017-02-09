@@ -59,7 +59,7 @@
                     <bndruns>
                         <bndrun>tp-validation.bndrun</bndrun>
                     </bndruns>
-                    <targetDir>.</targetDir>
+                    <targetDir>${project.build.directory}</targetDir>
                 </configuration>
                 <executions>
                     <execution>
