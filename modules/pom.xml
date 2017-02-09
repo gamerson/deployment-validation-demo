@@ -13,5 +13,6 @@
   <modules>
     <module>tp-portlet</module>
     <module>tp-loginaction</module>
+    <module>tp-rule</module>
   </modules>
 </project>
