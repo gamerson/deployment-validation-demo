@@ -1,19 +1,15 @@
--standalone: true
+-standalone: target/index.xml
 -resourceonly: true
-
--plugin.pom.repo = \
-	aQute.bnd.repository.maven.pom.provider.BndPomRepository; \
-		snapshotUrls=https://oss.sonatype.org/content/repositories/osgi/; \
-		releaseUrls=https://repo1.maven.org/maven2/; \
-		pom=${.}/pom.xml; \
-		name=pom.repo; \
-		location=${.}/target/cached.xml
 
 -runrequires: \
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.loginaction)',\
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.portlet)'
 
 -distro: com.liferay.target.platform-7.0.2.jar;version=file
+
+-runbundles: \
+    com.liferay.tp.loginaction;version='[1.0.0,1.0.1)',\
+    com.liferay.tp.portlet;version='[1.0.0,1.0.1)'
 
 -runfw: org.eclipse.osgi;version='[3.10.100.v20150529-1857,3.10.100.v20150529-1857]'
 -runee: JavaSE-1.8
