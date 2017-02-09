@@ -9,7 +9,7 @@
 	<groupId>com.liferay</groupId>
 	<artifactId>target-platform-validation</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>target-platform-validation</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,30 +28,12 @@
 						</goals>
 						<phase>clean</phase>
 					</execution>
-
-					<!--
-					<execution>
-						<id>default-init-bundle</id>
-						<goals>
-							<goal>init-bundle</goal>
-						</goals>
-						<phase>initialize</phase>
-					</execution>
-					-->
-
 					<execution>
 						<id>default-deploy</id>
 						<goals>
 							<goal>deploy</goal>
 						</goals>
 						<phase>pre-integration-test</phase>
-					</execution>
-					<execution>
-						<id>default-dist-bundle</id>
-						<goals>
-							<goal>dist-bundle</goal>
-						</goals>
-						<phase>post-integration-test</phase>
 					</execution>
 				</executions>
 			</plugin>
@@ -61,5 +43,26 @@
 		<module>modules</module>
 		<module>themes</module>
 		<module>wars</module>
+		<module>target-platform</module>
 	</modules>
+
+	<repositories>
+        <repository>
+            <id>osgi-snapshots</id>
+            <url>https://oss.sonatype.org/content/groups/osgi/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>bnd-snapshots</id>
+            <url>https://bndtools.ci.cloudbees.com/job/bnd.master/lastSuccessfulBuild/artifact/dist/bundles/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>bnd-snapshots</id>
+            <url>https://bndtools.ci.cloudbees.com/job/bnd.master/lastSuccessfulBuild/artifact/dist/bundles/</url>
+            <layout>default</layout>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

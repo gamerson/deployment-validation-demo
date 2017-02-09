@@ -1,6 +1,5 @@
 Bundle-Name: tp-portlet
-Bundle-SymbolicName: com.liferay.target.platform.validation
-Bundle-Version: 1.0.0
+Bundle-SymbolicName: com.liferay.tp.portlet
 -jsp: *.jsp,*.jspf
 -plugin.jsp: com.liferay.ant.bnd.jsp.JspAnalyzerPlugin
 -plugin.resourcebundle: com.liferay.ant.bnd.resource.bundle.ResourceBundleLoaderAnalyzerPlugin
