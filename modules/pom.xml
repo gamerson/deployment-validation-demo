@@ -14,5 +14,6 @@
     <module>tp-portlet</module>
     <module>tp-loginaction</module>
     <module>tp-rule</module>
+    <module>tp-fragment</module>
   </modules>
 </project>
