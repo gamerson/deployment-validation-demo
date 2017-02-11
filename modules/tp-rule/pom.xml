@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    <artifactId>target-platform-validation-modules</artifactId>
+    <artifactId>modules</artifactId>
     <groupId>com.liferay</groupId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
@@ -66,7 +66,7 @@
 			<plugin>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.css.builder</artifactId>
-				<version>1.0.20</version>
+				<version>1.0.23</version>
 				<executions>
 					<execution>
 						<id>default-build-css</id>
@@ -103,7 +103,7 @@
 			<plugin>
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-maven-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>default-bnd-process</id>
@@ -116,7 +116,7 @@
 					<dependency>
 						<groupId>biz.aQute.bnd</groupId>
 						<artifactId>biz.aQute.bndlib</artifactId>
-						<version>3.2.0</version>
+						<version>3.3.0</version>
 					</dependency>
 					<dependency>
 						<groupId>com.liferay</groupId>

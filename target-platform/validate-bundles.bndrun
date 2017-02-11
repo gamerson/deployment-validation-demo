@@ -2,7 +2,6 @@
 -resourceonly: true
 
 -runrequires: \
-    osgi.identity;filter:='(osgi.identity=com.liferay.tp.loginaction)',\
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.portlet)',\
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.fragment)'
 
@@ -10,7 +9,6 @@
 
 -runbundles: \
     com.liferay.tp.fragment;version='[1.0.0,1.0.1)',\
-    com.liferay.tp.loginaction;version='[1.0.0,1.0.1)',\
     com.liferay.tp.portlet;version='[1.0.0,1.0.1)'
 
 -runfw: org.eclipse.osgi;version='[3.10.100.v20150529-1857,3.10.100.v20150529-1857]'
