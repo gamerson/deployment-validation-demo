@@ -3,7 +3,8 @@
 
 -runrequires: \
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.portlet)',\
-    osgi.identity;filter:='(osgi.identity=com.liferay.tp.fragment)'
+    osgi.identity;filter:='(osgi.identity=com.liferay.tp.fragment)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.tp.impl)'
 
 -distro: com.liferay.target.platform-7.0.2.jar;version=file
 
@@ -11,5 +12,9 @@
 	osgi.identity;filter:='(osgi.identity=org.osgi.compendium)'
 
 -runbundles: \
-    com.liferay.tp.fragment;version='[1.0.0,1.0.1)',\
-    com.liferay.tp.portlet;version='[1.0.0,1.0.1)'
+	com.liferay.tp.fragment;version='[1.0.0,1.0.1)',\
+	com.liferay.tp.portlet;version='[1.0.0,1.0.1)',\
+	com.liferay.tp.api;version='[1.0.0,1.0.1)',\
+	com.liferay.tp.impl;version='[1.0.0,1.0.1)'
+
+-resolve.effective: resolve, active
