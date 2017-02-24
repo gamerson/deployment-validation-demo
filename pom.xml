@@ -90,6 +90,19 @@
 				    </executions>
 				</plugin>
 				<plugin>
+				    <groupId>biz.aQute.bnd</groupId>
+				    <artifactId>bnd-resolver-maven-plugin</artifactId>
+				    <version>${bnd.version}</version>
+				    <executions>
+				        <execution>
+				            <goals>
+				                <goal>resolve</goal>
+				            </goals>
+				        </execution>
+				    </executions>
+				</plugin>
+
+				<plugin>
 					<groupId>com.liferay</groupId>
 					<artifactId>com.liferay.css.builder</artifactId>
 					<version>1.0.23</version>
