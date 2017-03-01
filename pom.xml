@@ -144,7 +144,7 @@
 	</build>
 	<modules>
 		<module>modules</module>
-		<module>target-platform</module>
+		<module>validation</module>
 	</modules>
 	<repositories>
         <repository>

@@ -19,7 +19,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>target-platform</artifactId>
+	<artifactId>validation</artifactId>
 	<packaging>pom</packaging>
 
 	<build>
@@ -38,7 +38,7 @@
 					<failOnChanges>false</failOnChanges>
 					<resolve>true</resolve>
 					<bndruns>
-						<bndrun>validate.bndrun</bndrun>
+						<bndrun>validation.bndrun</bndrun>
 					</bndruns>
 				</configuration>
 				<executions>
