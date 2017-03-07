@@ -28,6 +28,7 @@
 				<groupId>biz.aQute.bnd</groupId>
 				<artifactId>bnd-indexer-maven-plugin</artifactId>
 				<configuration>
+					<includeJar>true</includeJar>
 					<localURLs>REQUIRED</localURLs>
 				</configuration>
 			</plugin>

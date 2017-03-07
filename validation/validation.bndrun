@@ -6,8 +6,8 @@
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.fragment)',\
     osgi.identity;filter:='(osgi.identity=com.liferay.tp.impl)'
 
--distro: com.liferay.target.platform-7.0.2.jar;version=file
-#-distro: com.liferay.target.platform-7.10.1.jar;version=file
+-distro: com.liferay.distro-7.0.2.jar;version=file
+#-distro: com.liferay.distro-7.10.1.jar;version=file
 
 -runblacklist:\
 	osgi.identity;filter:='(osgi.identity=org.osgi.compendium)'
