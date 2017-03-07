@@ -1,3 +1,0 @@
-Bundle-Name: tp-impl
-Bundle-SymbolicName: com.liferay.tp.impl
-Private-Package: com.liferay.tp.impl

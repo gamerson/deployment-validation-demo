@@ -3,17 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
+		<artifactId>modules</artifactId>
 		<groupId>com.liferay</groupId>
-		<artifactId>deployment-validation-demo</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>modules</artifactId>
-	<packaging>pom</packaging>
-	<modules>
-		<module>demo-api</module>
-		<module>demo-impl</module>
-		<module>demo-portlet</module>
-		<module>demo-rule</module>
-		<module>demo-fragment</module>
-	</modules>
+	<artifactId>demo-fragment</artifactId>
+	<packaging>jar</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

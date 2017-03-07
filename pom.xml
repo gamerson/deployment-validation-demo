@@ -6,7 +6,7 @@
 >
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay</groupId>
-	<artifactId>tp-demo</artifactId>
+	<artifactId>deployment-validation-demo</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 	<properties>
@@ -65,31 +65,6 @@
 					</dependencies>
 				</plugin>
 				<plugin>
-				  <groupId>biz.aQute.bnd</groupId>
-				  <artifactId>bnd-indexer-maven-plugin</artifactId>
-				  <version>${bnd.version}</version>
-				  <executions>
-				    <execution>
-				      <id>index</id>
-				      <goals>
-				        <goal>index</goal>
-				      </goals>
-				    </execution>
-				  </executions>
-				</plugin>
-				<plugin>
-				    <groupId>biz.aQute.bnd</groupId>
-				    <artifactId>bnd-resolver-maven-plugin</artifactId>
-				    <version>${bnd.version}</version>
-				    <executions>
-				        <execution>
-				            <goals>
-				                <goal>resolve</goal>
-				            </goals>
-				        </execution>
-				    </executions>
-				</plugin>
-				<plugin>
 					<groupId>com.liferay</groupId>
 					<artifactId>com.liferay.css.builder</artifactId>
 					<version>1.0.23</version>
@@ -108,7 +83,7 @@
 	</build>
 	<modules>
 		<module>modules</module>
-		<module>validation</module>
+		<module>distro-validation</module>
 	</modules>
 	<repositories>
         <repository>

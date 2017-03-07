@@ -1,3 +1,0 @@
-Bundle-Name: tp-api
-Bundle-SymbolicName: com.liferay.tp.api
-Export-Package: com.liferay.tp.api

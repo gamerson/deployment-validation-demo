@@ -1,0 +1,3 @@
+Bundle-Name: demo-impl
+Bundle-SymbolicName: com.liferay.demo.impl
+Private-Package: com.liferay.demo.impl

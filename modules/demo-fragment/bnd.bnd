@@ -1,0 +1,3 @@
+Bundle-Name: demo-fragment
+Bundle-SymbolicName: com.liferay.demo.fragment
+Fragment-Host: com.liferay.bookmarks.web;bundle-version="[1.0.11,1.0.12)"

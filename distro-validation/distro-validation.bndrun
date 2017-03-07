@@ -1,0 +1,8 @@
+-standalone: target/index.xml
+-resourceonly: true
+-resolve.effective: resolve, active
+-distro: com.liferay.distro-7.0.2.jar;version=file
+
+-runrequires: \
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)'
+-runbundles: com.liferay.demo.api;version='[1.0.0,1.0.1)'

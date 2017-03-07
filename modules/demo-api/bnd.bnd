@@ -1,0 +1,3 @@
+Bundle-Name: demo-api
+Bundle-SymbolicName: com.liferay.demo.api
+Export-Package: com.liferay.demo.api

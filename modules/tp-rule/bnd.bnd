@@ -1,8 +1,0 @@
-Bundle-Name: tp-rule
-Bundle-SymbolicName: com.liferay.tp.rule
-Web-ContextPath: /content-targeting-rule-tp-rule
--jsp: *.jsp,*.jspf
--plugin.jsp: com.liferay.ant.bnd.jsp.JspAnalyzerPlugin
--plugin.resourcebundle: com.liferay.ant.bnd.resource.bundle.ResourceBundleLoaderAnalyzerPlugin
--plugin.sass: com.liferay.ant.bnd.sass.SassAnalyzerPlugin
--sass: *
