@@ -4,5 +4,13 @@
 -distro: com.liferay.distro-7.0.2.jar;version=file
 
 -runrequires: \
-    osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)'
--runbundles: com.liferay.demo.api;version='[1.0.0,1.0.1)'
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.impl)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.fragment)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.portlet)'
+
+-runbundles: \
+	com.liferay.demo.api;version='[1.0.0,1.0.1)',\
+	com.liferay.demo.fragment;version='[1.0.0,1.0.1)',\
+	com.liferay.demo.impl;version='[1.0.0,1.0.1)',\
+	com.liferay.demo.portlet;version='[1.0.0,1.0.1)'
