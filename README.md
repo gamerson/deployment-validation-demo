@@ -130,6 +130,82 @@ Bundle cannot resolve service reference
 
 
 
+
+# Demo Time
+
+This repository contains some sample projects that can be used to demostrate the validation progressive enhancement.  In the example projects we have the following projects:
+
+ * demo-api (contains a simple OSGi service interface)
+ * demo-impl (contains an implementation of demo-api
+ * demo-portlet (mvc portlet with jsps that depends on demo-api)
+ * demo-fragment (references a portal jar to attach a fragment to (JSP override)
+ * demo-rule (audience targeting rule)
+ 
+Right now the way we have things setup the validation will succeed, which you can test with `mvn clean verify`  But that isn't very interesting, what is more interesting is to make some changes to see it fail and then we can see how it is actually working.
+
+## Change requirements to see validation in action
+
+Now lets make a series of changes to these example projects to demostrate the various validation capabilities of the OSGi resolver.
+
+### Validate imported packages exist
+
+Suppose that you have a bundle that has some dependency that is configued in the pom and then your OSGi code compiles against it, so your OSGi bundle is going to import various packages at runtime.  The resolver will verify that the packages existing in either your projects or in the Liferay distro.
+
+1. Open the [distro-validation/distro-validation.bndrun] file and add the `demo-rule` module to the validation rules (runrequires).
+ ```
+ -runrequires: \
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.rule)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.impl)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.fragment)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.portlet)'
+ ```
+2. run the build `mvn clean verify`
+ You should see the following error
+ ```
+ [ERROR] Failed to execute goal biz.aQute.bnd:bnd-resolver-maven-plugin:3.4.0-SNAPSHOT:resolve (resolve) on project distro-validation: Unable to resolve <<INITIAL>> version=null: missing requirement com.liferay.demo.rule [caused by: Unable to resolve com.liferay.demo.rule version=1.0.0.201703132112: missing requirement com.liferay.content.targeting.anonymous.users.model; version=[2.0.0,3.0.0)]
+ ```
+ This means that even though we are compiling and building the demo-rule bundle no problem (we have dependencies declared in pom) in our target runtime distro, those capabilities for those package imports aren't there (the audience targeting bundles were deploy when we built our distro-7.0.2.jar) thus we get that error.
+
+3. To resolve this problem you must deploy audience targeting application to DXP and then recapture the distro information and save into the file.
+  
+### Validate referenced services exist 
+
+1. Open the [modules/demo-impl/src/main/java/com/liferay/demo/impl/DemoImpl.java] file and comment out the `@Component` annotation.
+2. run the build `mvn clean verify` from the top level project. You should see the following error:
+ ```
+[ERROR] Failed to execute goal biz.aQute.bnd:bnd-resolver-maven-plugin:3.4.0-SNAPSHOT:resolve (resolve) on project distro-validation: Unable to resolve <<INITIAL>> version=null: missing requirement com.liferay.demo.portlet [caused by: Unable to resolve com.liferay.demo.portlet version=1.0.0.201703132041: missing requirement objectClass=com.liferay.demo.api.DemoApi] -> [Help 1]
+ ```
+ This means that the OSGi resolver has detected that the DemoPortlet Component has a static reference to the DemoApi and therefore it should look for at least one implementation of that interface in the following locations.
+ * Somewhere in a bundle in the current maven projects (in maven reactor build) or 
+ * In the Liferay Distro.
+ However, it was unable to find it (since we commented it out) and so we get that helpful error message.  
+
+### Validate fragment hosts exist
+
+If you have a OSGi fragment, you likely want to ensure that the Fragment-Host that it will be bound to exists in your targeted deployment.
+
+1. Edit the [modules/demo-fragment/bnd.bnd] file and modify the Fragment-Host version to the following:
+
+ ```
+ Fragment-Host: com.liferay.bookmarks.web;bundle-version="[1.0.13,1.0.14)"
+ ```
+2. Rerun the build `mvn clean verify`  You will see the following errors:
+ ```
+ [ERROR] Failed to execute goal biz.aQute.bnd:bnd-resolver-maven-plugin:3.4.0-SNAPSHOT:resolve (resolve) on project distro-validation: Unable to resolve <<INITIAL>> version=null: missing requirement com.liferay.demo.fragment [caused by: Unable to resolve com.liferay.demo.fragment version=1.0.0.201703132212: missing requirement com.liferay.bookmarks.web; version=[1.0.14,1.0.15)]
+ ```
+
+ This means that you are depending on a newer Fragment-Host that what is available in your distro `com.liferay.distro-7.0.2.jar`. 
+ 
+ But the fragment-host we want to bind to does exist, it is just in DXP distro `com.liferay.distro-7.10.1.jar`, so we need to update our distro
+
+3. Modify the [distro-validation/distro-validation.bndrun] file, edit the `-distro` command to the following:
+ ```
+ -distro: com.liferay.distro-7.10.1.jar;version=file
+ ```
+4. Rerun the build and notice that there are now no errors. 
+
+
 Notes for consideration:
 If the distro jar is published to a maven repo then the reference can be <bsn>;version=’[${version},)’
 Make sure the distro never resolves
