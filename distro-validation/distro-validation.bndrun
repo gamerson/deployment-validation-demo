@@ -1,6 +1,6 @@
 -standalone: target/index.xml
 -resourceonly: true
--resolve.effective: resolve, active
+-resolve.effective: resolve
 -distro: com.liferay.distro-7.0.2.jar;version=file
 
 -runrequires: \
