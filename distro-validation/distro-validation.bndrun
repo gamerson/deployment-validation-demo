@@ -3,7 +3,7 @@
 -resolve.effective: resolve, active
 
 -distro: com.liferay.distro-7.0.2.jar;version=file
--include: ${.}/liferay-core-services.bnd
+-include: ${.}/liferay-provided-services.bnd
 
 -runrequires: \
     osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)',\
