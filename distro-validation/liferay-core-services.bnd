@@ -1,2 +1,2 @@
--runsystemcapabilities: \
+-runprovidedcapabilities: \
 	osgi.service;objectClass=com.liferay.portal.kernel.service.UserLocalService;effective:=active
