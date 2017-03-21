@@ -2,6 +2,7 @@ package com.liferay.demo.portlet;
 
 import com.liferay.demo.api.DemoApi;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.service.UserLocalService;
 
 import javax.portlet.Portlet;
 
@@ -29,4 +30,5 @@ public class DemoPortlet extends MVCPortlet {
 
 	@Reference DemoApi demo;
 
+	@Reference UserLocalService userService;
 }
