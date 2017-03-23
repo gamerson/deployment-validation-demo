@@ -48,75 +48,75 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 
 2. Add the following bnd maven plugins as follows:
 
- ```
- <plugin>
-   <groupId>biz.aQute.bnd</groupId>
-   <artifactId>bnd-indexer-maven-plugin</artifactId>
-   <version>3.4.0-SNAPSHOT</version>
-   <configuration>
-     <includeJar>true</includeJar>
-    	<localURLs>REQUIRED</localURLs>
-   </configuration>
-   <executions>
-   	 <execution>
-    		 <id>index</id>
-    		 <goals>
-    			 <goal>index</goal>
-    		 </goals>
+```
+<plugin>
+  <groupId>biz.aQute.bnd</groupId>
+  <artifactId>bnd-indexer-maven-plugin</artifactId>
+  <version>3.4.0-SNAPSHOT</version>
+  <configuration>
+    <includeJar>true</includeJar>
+    <localURLs>REQUIRED</localURLs>
+  </configuration>
+  <executions>
+    <execution>
+      <id>index</id>
+      <goals>
+        <goal>index</goal>
+      </goals>
     	</execution>
-   </executions>
- </plugin>
- <plugin>
-   <groupId>biz.aQute.bnd</groupId>
-   <artifactId>bnd-resolver-maven-plugin</artifactId>
-   <version>3.4.0-SNAPSHOT</version>
-   <configuration>
-     <failOnChanges>false</failOnChanges>
-     <bndruns>
-       <bndrun>distro-validation.bndrun</bndrun>
-     </bndruns>
-   </configuration>
-   <executions>
- 	   <execution>
- 	 	   <id>resolve</id>
-       <phase>verify</phase>
- 	 	   <goals>
- 		  	   <goal>resolve</goal>
- 		    </goals>
-     </execution>
-   </executions>
- </plugin>
+  </executions>
+</plugin>
+<plugin>
+  <groupId>biz.aQute.bnd</groupId>
+  <artifactId>bnd-resolver-maven-plugin</artifactId>
+  <version>3.4.0-SNAPSHOT</version>
+  <configuration>
+    <failOnChanges>false</failOnChanges>
+    <bndruns>
+      <bndrun>distro-validation.bndrun</bndrun>
+    </bndruns>
+  </configuration>
+  <executions>
+    <execution>
+      <id>resolve</id>
+      <phase>verify</phase>
+      <goals>
+        <goal>resolve</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
  ```
 
 3. Include in this project’s pom file the top level project dependencies you wish to validate.
 
 ```
 <dependencies>
-	<dependency>
-		<groupId>com.liferay</groupId>
-		<artifactId>demo-api</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>com.liferay</groupId>
-		<artifactId>demo-portlet</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>com.liferay</groupId>
-		<artifactId>demo-rule</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>com.liferay</groupId>
-		<artifactId>demo-fragment</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>com.liferay</groupId>
-		<artifactId>demo-impl</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</dependency>
+  <dependency>
+    <groupId>com.liferay</groupId>
+    <artifactId>demo-api</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </dependency>
+  <dependency>
+    <groupId>com.liferay</groupId>
+    <artifactId>demo-portlet</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </dependency>
+  <dependency>
+    <groupId>com.liferay</groupId>
+    <artifactId>demo-rule</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </dependency>
+  <dependency>
+    <groupId>com.liferay</groupId>
+    <artifactId>demo-fragment</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </dependency>
+  <dependency>
+    <groupId>com.liferay</groupId>
+    <artifactId>demo-impl</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </dependency>
 </dependencies>
 ```
 
@@ -141,8 +141,6 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 
 6. Finally, execute the maven verify lifecycle.
  `mvn clean verify`
-
-
 
 # Demo
 
@@ -186,8 +184,8 @@ Suppose that you have a bundle that has some dependency that is configued in the
 
 So in many of your DS components you are likely adding references to services like
 ```
+@Reference DemoApi demoApi;
 @Reference UserLocalService;
-@Reference MyApi myApi;
 ```
 
 This resolution process can now check for missing service dependencies and alert you that there is no available implementation that will make that API available.
@@ -199,6 +197,10 @@ To see this in action do the following:
 2. Run the build `mvn clean verify`
 
 Notice that you get the following error.
+```
+Unable to resolve com.liferay.demo.portlet version=1.0.0.201703231910: missing requirement objectClass=com.liferay.demo.api.DemoApi
+```
+This means that the OSGi resolver was not able to find any capability that provided the service interface of DemoApi.
 
 3. Now put the `@Component` back, so that DemoAPi has at least one implementor
 
