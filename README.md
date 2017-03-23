@@ -165,6 +165,30 @@ Suppose that you have a bundle that has some dependency that is configued in the
 
 3. To resolve this problem you must deploy audience targeting application to DXP and then recapture the distro information and save into the file.
 
+### Validate that service implementations exist
+
+So in many of your DS components you are likely adding references to services like
+```
+@Reference UserLocalService;
+@Reference MyApi myApi;
+```
+
+This resolution process can now check for missing service dependencies and alert you that there is no available implementation that will make that API available.
+
+To see this in action do the following:
+
+1. Edit the DemoImpl.java file and comment out the `@Component` annotation.
+
+2. Run the build `mvn clean verify`
+
+Notice that you get the following error.
+
+3. Now put the `@Component` back, so that DemoAPi has at least one implementor
+
+5. Re-run the build. `mvn clean verify`
+
+Resolve error should be fixed now.
+
 ### Validate fragment hosts exist
 
 If you have a OSGi fragment, you likely want to ensure that the Fragment-Host that it will be bound to exists in your targeted deployment.
@@ -190,11 +214,11 @@ If you have a OSGi fragment, you likely want to ensure that the Fragment-Host th
 4. Rerun the build and notice that there are now no errors.
 
 
-Notes for consideration:
-If the distro jar is published to a maven repo then the reference can be <bsn>;version=’[${version},)’
-Make sure the distro never resolves
-Can we automate the -distro? (using a distro scope)
-Can we automate the -runrequires? (using a required scope)
+# Notes for consideration:
+* If the distro jar is published to a maven repo then the reference can be <bsn>;version=’[${version},)’
+* Make sure the distro never resolves
+* Can we automate the -distro? (using a distro scope)
+* Can we automate the -runrequires? (using a required scope)
 
 
 
