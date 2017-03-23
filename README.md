@@ -26,7 +26,7 @@ First we need a distro jar from an officical Liferay deployment.  Currently in t
  It may be useful to append the Liferay fixpack version to the distro as well. You could use a qualifier for that purpose.
  E.g. 7.10.1.FP2
 
-# Why does you need the distro?
+# Why do you need the distro?
 
 The distro bundle contains all the metadata about the Liferay deployment, including all exported packages, and other capabilities available from the provided bundles.  We need to use that information during the build to validate our bundles against it.  This way, we will be performing the same OSGi dependency resolution that happens when a bundle is installed into an OSGi framework, but now it will happen during a normal build lifecycle.  From technical standpoint, we will need to invoke the OSGi Resolver, to have it look at the bundles we are building and resolve their requirements against a set of known capabilities (a distro) and give us the resolution, success or failure.  If it finds failure, the resolver will tell you what failed and why, thus you will know it at build time instead of deploy, thereby saving you cycles.
 
