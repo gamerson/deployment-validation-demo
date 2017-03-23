@@ -6,7 +6,7 @@
 
 # Creating the Distro Jar
 
-First we need to generate a distro jar file from an official Liferay deployment.
+First we need a distro jar from an officical Liferay deployment.  Currently in this project I have included both 7.0.2 and 7.10.1  But if you have a more recent Liferay deployment you will need to follow the procedure below to generate a new distro jar.
 
 **Note:** The goal of the distro is to only include what’s provided by Liferay releases including fix packs.
 
@@ -90,6 +90,36 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 
 3. Include in this project’s pom file the top level project dependencies you wish to validate.
 
+```
+<dependencies>
+	<dependency>
+		<groupId>com.liferay</groupId>
+		<artifactId>demo-api</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.liferay</groupId>
+		<artifactId>demo-portlet</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.liferay</groupId>
+		<artifactId>demo-rule</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.liferay</groupId>
+		<artifactId>demo-fragment</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.liferay</groupId>
+		<artifactId>demo-impl</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+</dependencies>
+```
+
 4. Copy the distro jar that you created previously into this project directory. Let’s assume the file is called com.liferay.distro-7.10.1.jar.
 
 5. Create the bndrun file named in the resolver plugin’s configuration (distro-validation.bndrun) with the following content:
@@ -100,7 +130,7 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
  -distro: com.liferay.distro-7.10.1.jar;version=file
 ```
 
- Now we need to tell the OSGi resolver the identity of the bundles required for validation. We use an additional property in the bndrun file called -runrequires using the following format.
+ Now we need to tell the OSGi resolver the identity of the bundles required for validation. We use an additional property in the bndrun file called -runrequires using the following format. In general you want to add all of top level modules that you are building and deploying to Liferay.  You don't need to list all dependencies here, since the resolver will include transitive dependencies in its operation.
 
  ```
  -runrequires: \
@@ -111,19 +141,6 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 
 6. Finally, execute the maven verify lifecycle.
  `mvn clean verify`
-
-# Diagnosing resolver results
-
-If the build succeeds the resolver has successfully validated that the bundles targeted for deployment.
-
-Failure scenarios:
-
-Bundle cannot resolve package import
-Bundle cannot resolve service reference
-..                                fragment host
-..                                required capability?
-
-
 
 
 
