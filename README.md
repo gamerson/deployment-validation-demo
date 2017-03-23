@@ -174,7 +174,7 @@ Suppose that you have a bundle that has some dependency that is configued in the
 2. run the build `mvn clean verify`
  You should see the following error
  ```
- [ERROR] Failed to execute goal biz.aQute.bnd:bnd-resolver-maven-plugin:3.4.0-SNAPSHOT:resolve (resolve) on project distro-validation: Unable to resolve <<INITIAL>> version=null: missing requirement com.liferay.demo.rule [caused by: Unable to resolve com.liferay.demo.rule version=1.0.0.201703132112: missing requirement com.liferay.content.targeting.anonymous.users.model; version=[2.0.0,3.0.0)]
+Unable to resolve com.liferay.demo.rule version=1.0.0.201703132112: missing requirement com.liferay.content.targeting.anonymous.users.model; version=[2.0.0,3.0.0)]
  ```
  This means that even though we are compiling and building the demo-rule bundle no problem (we have dependencies declared in pom) in our target runtime distro, those capabilities for those package imports aren't there (the audience targeting bundles were deploy when we built our distro-7.0.2.jar) thus we get that error.
 
@@ -219,19 +219,18 @@ If you have a OSGi fragment, you likely want to ensure that the Fragment-Host th
  ```
 2. Rerun the build `mvn clean verify`  You will see the following errors:
  ```
- [ERROR] Failed to execute goal biz.aQute.bnd:bnd-resolver-maven-plugin:3.4.0-SNAPSHOT:resolve (resolve) on project distro-validation: Unable to resolve <<INITIAL>> version=null: missing requirement com.liferay.demo.fragment [caused by: Unable to resolve com.liferay.demo.fragment version=1.0.0.201703132212: missing requirement com.liferay.bookmarks.web; version=[1.0.14,1.0.15)]
+Unable to resolve com.liferay.demo.fragment version=1.0.0.201703132212: missing requirement com.liferay.bookmarks.web; version=[1.0.14,1.0.15)]
  ```
 
  This means that you are depending on a newer Fragment-Host that what is available in your distro `com.liferay.distro-7.0.2.jar`.
 
- But the fragment-host we want to bind to does exist, it is just in DXP distro `com.liferay.distro-7.10.1.jar`, so we need to update our distro
+ But the fragment-host we want to bind to does exist, however it does exist in DXP 7.10.1 so that means it would be available if we were usng the `com.liferay.distro-7.10.1.jar`, so we need to update our distro accordingly.
 
 3. Modify the [distro-validation/distro-validation.bndrun] file, edit the `-distro` command to the following:
  ```
  -distro: com.liferay.distro-7.10.1.jar;version=file
  ```
 4. Rerun the build and notice that there are now no errors.
-
 
 # Notes for consideration:
 * If the distro jar is published to a maven repo then the reference can be <bsn>;version=’[${version},)’
