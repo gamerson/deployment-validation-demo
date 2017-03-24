@@ -63,7 +63,7 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
       <goals>
         <goal>index</goal>
       </goals>
-    	</execution>
+    </execution>
   </executions>
 </plugin>
 <plugin>
@@ -141,6 +141,14 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 
 6. Finally, execute the maven verify lifecycle.
  `mvn clean verify`
+
+When the maven build gets to the distro-validation module, the bnd plugins that we have configured will begin the verification process which is the following:
+1. generates an OSGi index of all bundles that are a part of this multi-module maven build
+2. performs a `resolve` task using the Bnd OSGi Resolver based on the input we gave it in the distro-validation.bndrun file
+3. If everything goes well (all bundles OSGi requirements were met) then the distro-validation module build will succeed.
+4. If something went wrong and the resolver was not able to find all of the requirements it will through an error with the missing requirements.
+
+If you are interested in seeing the resolver detect these errors, continue onto the Demo section next to walk through a few scenerios that you are likely to encounter.
 
 # Demo
 
