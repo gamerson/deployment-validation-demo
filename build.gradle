@@ -1,0 +1,1 @@
+build.dependsOn ":distro-validation:validate"

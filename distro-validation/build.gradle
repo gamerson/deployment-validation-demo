@@ -1,0 +1,33 @@
+import aQute.bnd.gradle.Resolve
+
+buildscript {
+	dependencies {
+		classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:3.4.0+"
+	}
+
+	repositories {
+		maven {
+			url "https://bndtools.ci.cloudbees.com/job/bnd.master/lastSuccessfulBuild/artifact/dist/bundles/"
+		}
+	}
+}
+
+apply plugin: "biz.aQute.bnd.builder"
+
+configurations {
+  bundles
+}
+
+dependencies {
+    bundles project(":modules:demo-api")
+    bundles project(":modules:demo-fragment")
+    bundles project(":modules:demo-impl")
+    bundles project(":modules:demo-portlet")
+    bundles project(":modules:demo-rule")
+}
+
+task validate(type: Resolve) {
+   description "Validating against Liferay Distro"
+   bndrun { "distro-validation.bndrun" }
+   bundles = configurations.bundles
+}
