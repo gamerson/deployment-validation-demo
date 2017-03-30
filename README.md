@@ -1,12 +1,12 @@
-# Bundle Validation Progressive Enhancement for Builds
+# OSGi Bundle Validation Progressive Enhancement for Builds
 
-*Goal:* To know at build time if the dependencies of my OSGi bundles will be satified when they are installed into the OSGi framework.
+*Goal:* To know at build time if the dependencies of my OSGi bundles will be satisfied when they are installed into the OSGi framework.
 
 *Method:* Validate user bundles dependencies against a Liferay Distro during normal build lifecycle.
 
 # Creating the Distro Jar
 
-First we need a distro jar from an officical Liferay deployment.  Currently in this project I have included both 7.0.2 and 7.10.1  But if you have a more recent Liferay deployment you will need to follow the procedure below to generate a new distro jar.
+First we need a distro jar from an official Liferay deployment.  Currently in this project I have included both 7.0.2 and 7.10.1  But if you have a more recent Liferay deployment you will need to follow the procedure below to generate a new distro jar.
 
 **Note:** The goal of the distro is to only include what’s provided by Liferay releases including fix packs.
 
@@ -33,6 +33,8 @@ The distro bundle contains all the metadata about the Liferay deployment, includ
 # Using the distro in your build
 
 We are assuming that you are already using the bnd-maven-plugin to build your OSGi bundles.  Nothing needs to change for that process.  However, in some project in your overall maven build you need to configure a new maven plugin responsible for integrating the distro into the overall build.
+
+## Maven build configuration
 
 1. Add the following plugin repository to the build:
 
@@ -120,14 +122,14 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 </dependencies>
 ```
 
-4. Copy the distro jar that you created previously into this project directory. Let’s assume the file is called com.liferay.distro-7.10.1.jar.
+4. Copy the distro jar that you created previously into this project directory. Let’s assume the file is called com.liferay.distro-7.0.2.jar.
 
 5. Create the bndrun file named in the resolver plugin’s configuration (distro-validation.bndrun) with the following content:
 
  ```
  -standalone: target/index.xml
  -resolve.effective: resolve, active
- -distro: com.liferay.distro-7.10.1.jar;version=file
+ -distro: ${.}/com.liferay.distro-7.0.2.jar;version=file
 ```
 
  Now we need to tell the OSGi resolver the identity of the bundles required for validation. We use an additional property in the bndrun file called -runrequires using the following format. In general you want to add all of top level modules that you are building and deploying to Liferay.  You don't need to list all dependencies here, since the resolver will include transitive dependencies in its operation.
@@ -142,17 +144,88 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 6. Finally, execute the maven verify lifecycle.
  `mvn clean verify`
 
-When the maven build gets to the distro-validation module, the bnd plugins that we have configured will begin the verification process which is the following:
+## Gradle Build configuration
+
+1. Add the following bnd builder plugin to your gradle build
+
+ ```
+ buildscript {
+	dependencies {
+		classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:3.4.0+"
+	}
+
+	repositories {
+		maven {
+			url "https://bndtools.ci.cloudbees.com/job/bnd.master/lastSuccessfulBuild/artifact/dist/bundles/"
+		}
+	}
+}
+
+apply plugin: "biz.aQute.bnd.builder"
+ ```
+
+2. Add the following gradle task to the project where you want to validate the build
+
+```
+import aQute.bnd.gradle.Resolve
+
+task validate(type: Resolve) {
+   description "Validating against Liferay Distro"
+   bndrun { "distro-validation.bndrun" }
+   bundles = configurations.bundles
+}
+ ```
+
+3. Also in this same build.gradle file we need to add the bundles configuration and populate it with all of the project dependencies that we wish to validate.
+
+```
+configurations {
+  bundles
+}
+
+dependencies {
+    bundles project(":modules:demo-api")
+    bundles project(":modules:demo-fragment")
+    bundles project(":modules:demo-impl")
+    bundles project(":modules:demo-portlet")
+    bundles project(":modules:demo-rule")
+}
+```
+
+4. Copy the distro jar that you created previously into this project directory. Let’s assume the file is called com.liferay.distro-7.0.2.jar.
+
+5. Create the bndrun file named in the resolver plugin’s configuration (distro-validation.bndrun) with the following content:
+
+ ```
+ -resolve.effective: resolve, active
+ -distro: ${.}/com.liferay.distro-7.0.2.jar;version=file
+```
+
+ Now we need to tell the OSGi resolver the identity of the bundles required for validation. We use an additional property in the bndrun file called -runrequires using the following format. In general you want to add all of top level modules that you are building and deploying to Liferay.  You don't need to list all dependencies here, since the resolver will include transitive dependencies in its operation.
+
+ ```
+ -runrequires: \
+    osgi.identity;filter:='(osgi.identity=com.foo.provider)',\
+    osgi.identity;filter:='(osgi.identity=com.foo.other)'
+ ```
+ where the value of osgi.identity filter (e.g. com.foo.provider) is the bsn of our OSGi bundles, one per line.
+
+6. Finally, execute the new gradle validate task.
+ `gradle validate`
+
+## What does this really do to my build?
+
+When the either maven or gradle build gets to the distro-validation module, the bnd plugins that we have configured will begin the verification process which is the following:
 1. generates an OSGi index of all bundles that are a part of this multi-module maven build
 2. performs a `resolve` task using the Bnd OSGi Resolver based on the input we gave it in the distro-validation.bndrun file
 3. If everything goes well (all bundles OSGi requirements were met) then the distro-validation module build will succeed.
 4. If something went wrong and the resolver was not able to find all of the requirements it will through an error with the missing requirements.
 
-If you are interested in seeing the resolver detect these errors, continue onto the Demo section next to walk through a few scenerios that you are likely to encounter.
+If you are interested in seeing the resolver detect these errors, continue onto the Demo section next to walk through a few scenarios that you are likely to encounter.
 
 # Demo
 
-This repository contains some sample projects that can be used to demostrate the validation progressive enhancement.  In the example projects we have the following projects:
+This repository contains some sample projects that can be used to demonstrate the validation progressive enhancement.  In the example projects we have the following projects:
 
  * demo-api (contains a simple OSGi service interface)
  * demo-impl (contains an implementation of demo-api
