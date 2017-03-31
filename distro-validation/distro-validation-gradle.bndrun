@@ -12,7 +12,7 @@
     osgi.identity;filter:='(osgi.identity=com.liferay.demo.portlet)'
 
 -runbundles: \
-	com.liferay.demo.api;version='[0.0.0,0.0.1)',\
-	com.liferay.demo.fragment;version='[0.0.0,0.0.1)',\
-	com.liferay.demo.impl;version='[0.0.0,0.0.1)',\
-	com.liferay.demo.portlet;version='[0.0.0,0.0.1)'
+	com.liferay.demo.api;version='[1.0.0,1.0.1)',\
+	com.liferay.demo.fragment;version='[1.0.0,1.0.1)',\
+	com.liferay.demo.impl;version='[1.0.0,1.0.1)',\
+	com.liferay.demo.portlet;version='[1.0.0,1.0.1)'
