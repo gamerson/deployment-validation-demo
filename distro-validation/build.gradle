@@ -14,20 +14,22 @@ buildscript {
 
 apply plugin: "biz.aQute.bnd.builder"
 
-configurations {
-  bundles
+dependencies {
+  runtime project(":modules:demo-api")
+  runtime project(":modules:demo-fragment")
+  runtime project(":modules:demo-impl")
+  runtime project(":modules:demo-portlet")
+  runtime project(":modules:demo-rule")
 }
 
-dependencies {
-    bundles project(":modules:demo-api")
-    bundles project(":modules:demo-fragment")
-    bundles project(":modules:demo-impl")
-    bundles project(":modules:demo-portlet")
-    bundles project(":modules:demo-rule")
+Set<Project> moduleProjects = project.parent.subprojects.findAll {
+	it.name.startsWith "demo-"
 }
 
 task validate(type: Resolve) {
-   description "Validating against Liferay Distro"
-   bndrun { "distro-validation.bndrun" }
-   bundles = configurations.bundles
+	dependsOn moduleProjects.collect {
+		"${it.path}:build"
+	}
+	description "Validating against Liferay Distro"
+	bndrun { "distro-validation-gradle.bndrun" }
 }
