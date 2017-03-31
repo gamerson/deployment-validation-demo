@@ -1,8 +1,14 @@
+sudo: false
+
 language: java
 
 jdk:
   - oraclejdk7
 
-install: ./gradlew --version
+install:
+  - ./gradlew --version
+  - ./mvnw --version
 
-script: ./gradlew clean build
+script:
+  - ./gradlew clean build
+  - ./mvnw clean verify
