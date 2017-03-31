@@ -69,8 +69,6 @@
 	osgi.service;objectClass=com.liferay.blogs.service.BlogsEntryLocalService,\
 	osgi.service;objectClass=com.liferay.blogs.service.BlogsEntryService,\
 	osgi.service;objectClass=com.liferay.blogs.service.BlogsStatsUserLocalService,\
-	osgi.service;objectClass=${package}.service.FooLocalService,\
-	osgi.service;objectClass=${package}.service.FooService,\
 	osgi.service;objectClass=com.liferay.sync.service.SyncDeviceLocalService,\
 	osgi.service;objectClass=com.liferay.sync.service.SyncDeviceService,\
 	osgi.service;objectClass=com.liferay.sync.service.SyncDLFileVersionDiffLocalService,\
@@ -301,6 +299,8 @@
 	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordService,\
 	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordSetLocalService,\
 	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordSetService,\
+	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordSetVersionLocalService,\
+	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordSetVersionService,\
 	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordVersionLocalService,\
 	osgi.service;objectClass=com.liferay.dynamic.data.lists.service.DDLRecordVersionService,\
 	osgi.service;objectClass=com.liferay.shopping.service.ShoppingCartLocalService,\

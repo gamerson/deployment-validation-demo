@@ -50,6 +50,7 @@ public class CreateRunProvidedCapabilities {
 		List<String> runProvidedCaps =
 				serviceXmlFiles.
 					stream().
+					filter(serviceXml -> !serviceXml.toString().contains("project-templates")).
 					flatMap(serviceXml -> buildServicesList(serviceXml).stream()).
 					map(cap -> "osgi.service;objectClass=" + cap).
 					distinct().
