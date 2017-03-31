@@ -1,0 +1,18 @@
+-standalone:
+-resourceonly: true
+-resolve.effective: resolve, active
+
+-distro: ${.}/com.liferay.distro-7.0.2.jar;version=file
+-include: ${.}/liferay-provided-services.bnd
+
+-runrequires: \
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.impl)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.fragment)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.portlet)'
+
+-runbundles: \
+	com.liferay.demo.api;version='[0.0.0,0.0.1)',\
+	com.liferay.demo.fragment;version='[0.0.0,0.0.1)',\
+	com.liferay.demo.impl;version='[0.0.0,0.0.1)',\
+	com.liferay.demo.portlet;version='[0.0.0,0.0.1)'
