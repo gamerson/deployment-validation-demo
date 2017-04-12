@@ -128,16 +128,18 @@ We are assuming that you are already using the bnd-maven-plugin to build your OS
 
  ```
  -standalone: target/index.xml
+ -resourceonly: true
  -resolve.effective: resolve, active
  -distro: ${.}/com.liferay.distro-7.0.2.jar;version=file
+ -include: ${.}/liferay-provided-services.bnd
 ```
 
  Now we need to tell the OSGi resolver the identity of the bundles required for validation. We use an additional property in the bndrun file called -runrequires using the following format. In general you want to add all of top level modules that you are building and deploying to Liferay.  You don't need to list all dependencies here, since the resolver will include transitive dependencies in its operation.
 
  ```
  -runrequires: \
-    osgi.identity;filter:='(osgi.identity=com.foo.provider)',\
-    osgi.identity;filter:='(osgi.identity=com.foo.other)'
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.api)',\
+    osgi.identity;filter:='(osgi.identity=com.liferay.demo.impl)'
  ```
  where the value of osgi.identity filter (e.g. com.foo.provider) is the bsn of our OSGi bundles, one per line.
 
